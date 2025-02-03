@@ -12,6 +12,7 @@ builder.Services.AddDbContext<JobTrackerDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 
+builder.Services.AddAutoMapper(typeof(Program).Assembly); // using AutoMapper;
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
