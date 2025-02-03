@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobTrackerData.Models
+namespace JobTrackerData.DTO.NotesDtos
 {
-    public class Notes
+    public class NotesUpdateDto
     {
         [Key]
         public int Id { get; set; }
@@ -11,11 +11,7 @@ namespace JobTrackerData.Models
         public string CompanyName { get; set; }
         [Required]
         public string Content { get; set; }
-        [Required]
-        public DateTime Date { get; set; }
-        // Foreign key for the relationship
         public int JobListingId { get; set; }
-        // Navigation property for the relationship
-        //public JobListing JobListing { get; set; }
+
     }
 }

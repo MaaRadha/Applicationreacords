@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobTrackerData.Migrations
 {
     [DbContext(typeof(JobTrackerDbContext))]
-    [Migration("20250203005342_Initial_Migration_models")]
-    partial class Initial_Migration_models
+    [Migration("20250203213900_UpdatedMigration")]
+    partial class UpdatedMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,6 @@ namespace JobTrackerData.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("CompanyWebsiteLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactEmail")
@@ -69,7 +68,6 @@ namespace JobTrackerData.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactPersonRole")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -88,6 +86,26 @@ namespace JobTrackerData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JobListings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "1234 Main St",
+                            City = "Oslo",
+                            CompanyJobLink = "https://www.company1.com/jobs",
+                            CompanyMediaUrl = "https://www.company1.com",
+                            CompanyName = "Company1",
+                            CompanyPerson1name = "Person1",
+                            CompanyPerson2name = "Person2",
+                            CompanyWebsiteLink = "https://www.company1.com",
+                            ContactEmail = "job@test@job.com",
+                            ContactPersonPhone = "John doe",
+                            ContactPersonRole = "Role1",
+                            SubmissionDate = "2024-02-02",
+                            Title = "Frontend developer",
+                            comments = "This is comment"
+                        });
                 });
 
             modelBuilder.Entity("JobTrackerData.Models.Notes", b =>
@@ -118,6 +136,16 @@ namespace JobTrackerData.Migrations
                     b.HasIndex("JobListingId");
 
                     b.ToTable("Notes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyName = "Company1",
+                            Content = "Content1",
+                            Date = new DateTime(2025, 2, 3, 22, 39, 0, 291, DateTimeKind.Local).AddTicks(7861),
+                            JobListingId = 1
+                        });
                 });
 
             modelBuilder.Entity("JobTrackerData.Models.Notes", b =>

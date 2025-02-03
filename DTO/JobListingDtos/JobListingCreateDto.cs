@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobTrackerData.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace JobTrackerData.Models
+namespace JobTrackerData.DTO.JobListingDtos
 {
-    public class JobListing
+    public class JobListingCreateDto
     {
-        [Key]
-        public int Id { get; set; }
+        
         [Required]
         [StringLength(450)]
         public string? CompanyName { get; set; }
@@ -28,9 +28,6 @@ namespace JobTrackerData.Models
         [StringLength(350)]
         public string SubmissionDate { get; set; }
         public string? comments { get; set; }
-
-        // Navigation property for the one-to-many relationship
-        public List<Notes> Notes { get; set; } 
 
     }
 }

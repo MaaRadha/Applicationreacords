@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobTrackerData.Migrations
 {
     [DbContext(typeof(JobTrackerDbContext))]
-    [Migration("20250203005342_Initial_Migration_models")]
-    partial class Initial_Migration_models
+    [Migration("20250203135348_allowed_null_2nd_inititalCreate")]
+    partial class allowed_null_2nd_inititalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,6 @@ namespace JobTrackerData.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("CompanyWebsiteLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactEmail")
@@ -69,7 +68,6 @@ namespace JobTrackerData.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactPersonRole")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
