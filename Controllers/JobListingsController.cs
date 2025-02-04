@@ -30,6 +30,10 @@ namespace JobTrackerData.Controllers
         }
 
         // GET: api/JobListings
+        /// <summary>
+        /// Get all of the JobListings
+        /// </summary>
+        /// <returns> A list of JobListings DTO </returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -40,6 +44,11 @@ namespace JobTrackerData.Controllers
         }
 
         // GET: api/JobListings/5
+        /// <summary>
+        /// Get a single JobListings by Id
+        /// </summary>
+        /// <param name="id">The ID of the JobListings</param>
+        /// <returns> HTTP 200 response if successful</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -57,6 +66,11 @@ namespace JobTrackerData.Controllers
 
         // PUT: api/JobListings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Update the JobListings
+        /// </summary>
+        /// <param name="id">The ID of the JobListings to update.</param>
+        /// <returns>An HTTP 204 response if successful.</returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -93,6 +107,11 @@ namespace JobTrackerData.Controllers
 
         // POST: api/JobListings
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Add a new JobListings to the database
+        /// </summary>
+        /// <param name="jobListingCreateDto">A DTO containing the properties of the new JobListings</param>
+        /// <returns>A DTO of the newly created</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -109,6 +128,11 @@ namespace JobTrackerData.Controllers
         }
 
         // DELETE: api/JobListings/5
+        /// <summary>
+        /// Remove an JobListings from the database.
+        /// </summary>
+        /// <param name="id">The ID of the JobListings to delete.</param>
+        /// <returns>An HTTP 204 response if successful.</returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
