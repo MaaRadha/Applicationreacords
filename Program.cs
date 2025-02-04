@@ -1,19 +1,38 @@
 using JobTrackerData.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder
+            .WithOrigins("https://localhost:44375")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+        });
+});
+
+
 // Add services to the container.
-
 builder.Services.AddControllers();
+//builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
-//D- injection 
+//D- injection  Database Configuration
 builder.Services.AddDbContext<JobTrackerDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-
+// AutoMapper Configuration
 builder.Services.AddAutoMapper(typeof(Program).Assembly); // using AutoMapper;
 
 
@@ -39,6 +58,8 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
+ 
+    // Include XML comments for API documentation
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
@@ -54,16 +75,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting(); // Add this line
 
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
-// Cors error fix
-
-app.UseCors(builder => builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    );
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapControllers();
 
