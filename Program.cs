@@ -65,8 +65,6 @@ app.UseCors(builder => builder
     .AllowAnyHeader()
     );
 
-
-
 app.MapControllers();
 
 app.Run();
