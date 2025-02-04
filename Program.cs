@@ -35,7 +35,7 @@ builder.Services.AddSwaggerGen(options =>
         License = new OpenApiLicense
         {
             Name = "MIT License",
-            Url = new Uri("https://example.com/license")
+            Url = new Uri("https://github.com/MaaRadha/JobTrackerData/blob/master/LICENSE")
         }
     });
 
