@@ -31,7 +31,7 @@ builder.Services.AddControllers();
 
 //D- injection  Database Configuration
 builder.Services.AddDbContext<JobTrackerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings:DatabaseConnection")));
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(typeof(Program).Assembly); // using AutoMapper;
