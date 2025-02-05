@@ -10,21 +10,6 @@ using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder
-            //.WithOrigins("https://localhost:44375")
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
-        });
-});
-
-
 // Add services to the container.
 builder.Services.AddControllers();
 //builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
@@ -59,7 +44,6 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
- 
     // Include XML comments for API documentation
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
@@ -68,21 +52,17 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI(c =>
-//    {
-//        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-//    });
-//}
+ /*Configure the HTTP request pipeline.*/
 
-app.UseSwagger();
-app.UseSwaggerUI(c =>
+if (app.Environment.IsDevelopment())
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-});
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
+}
+
 
 app.UseHttpsRedirection();
 app.UseRouting(); // Add this line
@@ -92,10 +72,18 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//});
+
+
+// Use CORS Errors look my whole file 
+app.UseCors(builder => builder
+ .AllowAnyHeader()
+ .AllowAnyMethod()
+ .AllowAnyOrigin()
+ );
 
 app.MapControllers();
 
