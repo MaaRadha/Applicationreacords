@@ -1,4 +1,5 @@
 # ApplicationRecordDb API
+![image](https://github.com/user-attachments/assets/562c3a92-93bf-4a2c-910c-5dff549ca463)
 
 Welcome to the **ApplicationRecordDb API**! This is an **ASP.NET Core Web API** designed to help you track your job applications. Whether you're applying to multiple companies or simply keeping track of your progress, this API provides a structured way to record your applications, associated contacts, and personal notes.
 
