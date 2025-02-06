@@ -20,8 +20,7 @@ builder.Services.AddControllers();
 //builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
 //D- injection  Database Configuration
-//builder.Services.AddDbContext<JobTrackerDbContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings:DatabaseConnection")));
+
 var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings:DatabaseConnection");
 if (string.IsNullOrEmpty(connectionString))
 {
@@ -67,33 +66,20 @@ var app = builder.Build();
 
 /*Configure the HTTP request pipeline.*/
 
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI(c =>
-//    {
-//        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-//    });
-//}
-app.UseSwagger();
-app.UseSwaggerUI(c =>
+if (app.Environment.IsDevelopment())
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-});
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
+}
+
 
 app.UseHttpsRedirection();
 app.UseRouting(); // Add this line
 
-app.UseCors("AllowAll");
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
-
+app.MapControllers();
 
 // Use CORS Errors look my whole file 
 app.UseCors(builder => builder
@@ -102,6 +88,6 @@ app.UseCors(builder => builder
  .AllowAnyOrigin()
  );
 
-app.MapControllers();
+
 
 app.Run();
