@@ -15,8 +15,16 @@ builder.Services.AddControllers();
 //builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
 //D- injection  Database Configuration
+//builder.Services.AddDbContext<JobTrackerDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings:DatabaseConnection")));
+var connectionString = builder.Configuration.GetConnectionString("ConnectionStrings:DatabaseConnection");
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("Database connection string is missing!");
+}
+
 builder.Services.AddDbContext<JobTrackerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings:DatabaseConnection")));
+    options.UseSqlServer(connectionString));
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(typeof(Program).Assembly); // using AutoMapper;
