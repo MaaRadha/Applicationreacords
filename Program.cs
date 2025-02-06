@@ -10,6 +10,11 @@ using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add user secrets only in development environment
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>(); 
+}
 // Add services to the container.
 builder.Services.AddControllers();
 //builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
